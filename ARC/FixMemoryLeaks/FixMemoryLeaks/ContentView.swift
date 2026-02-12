@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  MemoryLeaks
+//  FixMemoryLeaks
 //
 //  Created by Manish Ahire on 12/02/26.
 //
@@ -25,8 +25,7 @@ class Person {
 
 class Job {
     var title: String
-    var person: Person?
-    var compani: Compani?
+    weak var person: Person?
 
     init(title: String) {
         self.title = title
@@ -38,18 +37,6 @@ class Job {
     }
 }
 
-class Compani {
-    var name: String
-    
-    init(name: String) {
-        self.name = name
-        print("Compani => init called")
-    }
-    
-    deinit {
-        print("Compani => deinit called")
-    }
-}
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -63,13 +50,6 @@ struct ContentView: View {
                 
                 objPerson.job = objJob
                 objJob.person = objPerson
-                
-                var objCompani: Compani? = Compani(name: "XYZ")
-                print(objCompani!.name)
-                
-                objJob.compani = objCompani
-                objCompani = nil
-                
             }
         }
         .padding()
