@@ -3,8 +3,8 @@
 class Person {
     
     var name: String
-    weak var job: Job? // Always declar var and make it Optional,
-                       // Because, ARC automatically set nil value at runtime
+    var job: Job? // Always declar var and make it Optional,
+    // Because, ARC automatically set nil value at runtime
     
     init(_name: String) {
         name = _name
@@ -21,7 +21,7 @@ class Person {
 class Job {
     
     var title: String
-    var person: Person? // Optional, because a Job may not always have a Person
+    weak var person: Person? // Optional, because a Job may not always have a Person
     
     init(_title: String) {
         title = _title
@@ -35,21 +35,22 @@ class Job {
 }
 
 
-if true {
-    
-    var objPerson: Person?
-    objPerson = Person(_name: "Manish")
-    
-    var objJob: Job?
-    objJob = Job(_title: "iOS Developer")
-    
-    objPerson!.name
-    objJob!.title
-    
-    // Strong Reference Cycle
-    objPerson!.job = objJob
-    objJob!.person = objPerson
-    
-//    objPerson = nil // But Person still poiting to Job
-//    objJob = nil // But Job still poiting to Person
-}
+
+
+var objPerson: Person?
+objPerson = Person(_name: "Manish")
+
+var objJob: Job?
+objJob = Job(_title: "iOS Developer")
+
+objPerson!.name
+objJob!.title
+
+// Strong Reference Cycle
+objPerson!.job = objJob
+objJob!.person = objPerson
+
+objPerson = nil // Breaks strong reference cycle
+
+objJob = nil
+
